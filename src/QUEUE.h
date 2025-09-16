@@ -48,7 +48,7 @@ typedef struct date {
 
 // Estrutura "petInfo" contendo todas as informações/dados necessários no preenchimento para cadastro do atendimento do animal
 typedef struct petInfo {
-    int id; // TODO: Implementar (pesquisar) sistema de geração de ID único
+    int id; // Número de identificação (ID) aleatório gerado pelo sistema - não é necessário o preenchimento pelo usuário
     char name[max_name_char]; // Nome (alfanumérico com no máximo 50 caracteres)
     char specie[max_specie_char]; // Espécie (alfanumérico com no máximo 30 caracteres)
     int age; // Idade

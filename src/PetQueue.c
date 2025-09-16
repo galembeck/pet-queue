@@ -16,7 +16,9 @@
 
 
 
-#define max_user_char 100
+#define max_user_char 100 // Máximo de caracteres para "username" (usuário - página de login)
+
+
 
 /* Projeto Prático (Atividade Avaliativa) 01 | Engenharia de Computação - Estrutura de Dados
 
@@ -75,25 +77,31 @@
                 - Imprimir todas as informações na ordem de atendimento.
                 - O formato da impressão deve ser:
                     • ID | Nome | Espécie | Idade | Prioridade
+
+        * OBS: Além disso, há uma função de geração de números de identificação (IDs) únicos e aleatórios
+                no sistema, chamada de "generateUniqueId".
 */
 
 
 
-// Função auxiliar para gerar ID único entre 100 e 999
+// FUNÇÕES UTILITÁRIAS:
+
+// Função de geração de IDs únicos e aleatórios, com verificação de existência nas filas de atendimento
 int generateUniqueId(Queue* emergency, Queue* normal, Queue* attended) {
     int id, exists;
+
     Node* p;
 
     do {
         id = 100 + rand() % 900; // 100 a 900
         exists = 0;
 
-        for (p = emergency->beginning; p != NULL; p = p->next)
-            if (p->petInfo.id == id) exists = 1;
-        for (p = normal->beginning; p != NULL; p = p->next)
-            if (p->petInfo.id == id) exists = 1;
-        for (p = attended->beginning; p != NULL; p = p->next)
-            if (p->petInfo.id == id) exists = 1;
+        for (p = emergency -> beginning; p != NULL; p = p -> next)
+            if (p -> petInfo.id == id) exists = 1;
+        for (p = normal -> beginning; p != NULL; p = p -> next)
+            if (p -> petInfo.id == id) exists = 1;
+        for (p = attended -> beginning; p != NULL; p = p -> next)
+            if (p -> petInfo.id == id) exists = 1;
 
     } while (exists);
 
@@ -102,22 +110,27 @@ int generateUniqueId(Queue* emergency, Queue* normal, Queue* attended) {
 
 
 
-void companyShowcase();
+// FUNÇÕES SECUNDÁRIAS (DO SISTEMA):
 
-void loginInformation();
-void loginPage();
+void companyShowcase(); // Função de exibição do desenho/logo do sistema de gerenciamento veterinário
 
-int optionsMenu();
+void loginInformation(); // Função de exibição das informações (texto explicativo) de login do sistema
+void loginPage(); // Função de preenchimento das informações (usuário e senha) de login do sistema
 
-void insertPet(Queue* emergency, Queue* normal, Queue* attended);
-void attendPet(Queue* emergency, Queue* normal, Queue* attended);
-void searchPet(Queue* emergency, Queue* normal, Queue* attended);
-void printAllQueues(Queue* emergency, Queue* normal);
-void printNextPet(Queue* emergency, Queue* normal);
-void printAttendedPets(Queue* attended);
+int optionsMenu(); // Função de exibição e escolha das opções do menu do sistema de gerenciamento
+
+void insertPet(Queue* emergency, Queue* normal, Queue* attended); // Função de inserção/cadastro de novos animais nas filas de atendimento do sistema
+void attendPet(Queue* emergency, Queue* normal, Queue* attended); // Função de atendimento (remoção) dos animais nas filas de atendimento (de acordo com a ordem de prioridade)
+void searchPet(Queue* emergency, Queue* normal, Queue* attended); // Função de busca de animais (por ID e/ou nome) nas filas de atendimento
+void printAllQueues(Queue* emergency, Queue* normal); // Função de exibição dos animais registrados nas filas de atendimento do sistema
+void printNextPet(Queue* emergency, Queue* normal); // Função de exibição do próximo animal a ser atendido nas filas de atenimento (de acordo com a ordem de prioridade)
+void printAttendedPets(Queue* attended); // Função de exibição dos animais já atendidos no sistema de gerenciamento veterinário
 
 
 
+// FUNÇÃO PRINCIPAL (DO PROGRAMA):
+
+// Função principal ("main") com instruções básicas de funcionamento
 int main() {
     setlocale(LC_ALL, "portuguese");
 
@@ -191,6 +204,9 @@ int main() {
 
 
 
+// FUNÇÕES SECUNDÁRIAS (DO SISTEMA):
+
+// Função de exibição do desenho/logo do sistema de gerenciamento veterinário
 void companyShowcase() {
     printf("\n           ,");
     printf("\n           \\`-._           __");
@@ -226,6 +242,7 @@ void companyShowcase() {
 
 
 
+// Função de exibição das informações (texto explicativo) de login do sistema
 void loginInformation() {
     companyShowcase();
 
@@ -237,6 +254,7 @@ void loginInformation() {
     printf("\n\n Informe, nos campos abaixo, o \"usuário\" e a \"senha\" corretos para acessar o painel.\n");
 }
 
+// Função de preenchimento das informações (usuário e senha) de login do sistema
 void loginPage() {
     char user[max_user_char];
     int password, trys = 0;
@@ -295,6 +313,7 @@ void loginPage() {
 
 
 
+// Função de exibição e escolha das opções do menu do sistema de gerenciamento
 int optionsMenu() {
     int selected_option;
 
@@ -324,6 +343,7 @@ int optionsMenu() {
 
 
 
+// Função de inserção/cadastro de novos animais nas filas de atendimento do sistema
 void insertPet(Queue* emergency, Queue* normal, Queue* attended) {
     PetInfo newPet;
 
@@ -412,6 +432,7 @@ void insertPet(Queue* emergency, Queue* normal, Queue* attended) {
     system("pause");
 }
 
+// Função de atendimento (remoção) dos animais nas filas de atendimento (de acordo com a ordem de prioridade)
 void attendPet(Queue* emergency, Queue* normal, Queue* attended) {
     system("cls");
 
@@ -460,6 +481,7 @@ void attendPet(Queue* emergency, Queue* normal, Queue* attended) {
     system("pause");
 }
 
+// Função de busca de animais (por ID e/ou nome) nas filas de atendimento
 void searchPet(Queue* emergency, Queue* normal, Queue* attended) {
     int selected_option, id;
 
@@ -544,6 +566,7 @@ void searchPet(Queue* emergency, Queue* normal, Queue* attended) {
     } while (selected_option != 0);
 }
 
+// Função de exibição dos animais registrados nas filas de atendimento do sistema
 void printAllQueues(Queue* emergency, Queue* normal) {
     system("cls");
 
@@ -562,6 +585,7 @@ void printAllQueues(Queue* emergency, Queue* normal) {
     system("pause");
 }
 
+// Função de exibição do próximo animal a ser atendido nas filas de atenimento (de acordo com a ordem de prioridade)
 void printNextPet(Queue* emergency, Queue* normal) {
     system("cls");
 
@@ -585,6 +609,7 @@ void printNextPet(Queue* emergency, Queue* normal) {
     system("pause");
 }
 
+// Função de exibição dos animais já atendidos no sistema de gerenciamento veterinário
 void printAttendedPets(Queue* attended) {
     system("cls");
 
