@@ -598,7 +598,7 @@ void printAttendedPets(Queue* attended) {
     printf("\n ------------------------------------------");
 
     for (p = attended -> beginning; p != NULL; p = p -> next) {
-        printf("\n %d | %s | %s | %02d | %s\n",
+        printf("\n %d | %s | %s | %02d | %s",
                p -> petInfo.id,
                p -> petInfo.name,
                p -> petInfo.specie,
@@ -610,7 +610,7 @@ void printAttendedPets(Queue* attended) {
         printf("\n\n A fila de animais atendidos está vazia! Que tal iniciar alguns atendimentos?\n");
     }
 
-    printf("\n");
+    printf("\n\n");
     sleep(1);
     system("pause");
 }
